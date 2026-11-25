@@ -1,0 +1,56 @@
+[
+  {
+    "ticket_id": "TKT-001",
+    "created_at": "2026-11-24T19:15:58.896809+00:00",
+    "updated_at": "2026-11-24T19:15:58.896809+00:00",
+    "order_id": "KC-1047",
+    "customer_email": "kavya.reddy@example.com",
+    "intent": "return_refund",
+    "priority": "Normal",
+    "status": "Open",
+    "summary": "Want to return toner: Hi team, I received my Rose Water Toner on Monday (order KC-1047). I bought it as a gift but it turns out my friend already has one. It's still sealed, never opened. Can I return",
+    "llm_summary": "Want to return toner: Hi team, I received my Rose Water Toner on Monday (order KC-1047). I bought it as a gift but it turns out my friend already has one. It's still sealed, never opened. Can I return",
+    "email_ids": [
+      "E03"
+    ],
+    "notes": [
+      "Policy review required before any refund action."
+    ]
+  },
+  {
+    "ticket_id": "TKT-002",
+    "created_at": "2026-11-24T19:15:58.897214+00:00",
+    "updated_at": "2026-11-24T19:15:58.897214+00:00",
+    "order_id": "KC-1052",
+    "customer_email": "tanvi.desai@example.com",
+    "intent": "complaint",
+    "priority": "High",
+    "status": "Open",
+    "summary": "Damaged product received - KC-1052: Hi, I received my order KC-1052 yesterday and the Ubtan Face Pack jar is cracked on the side. Half the powder has spilled into the box. The toner is fine. Please he",
+    "llm_summary": "Damaged product received - KC-1052: Hi, I received my order KC-1052 yesterday and the Ubtan Face Pack jar is cracked on the side. Half the powder has spilled into the box. The toner is fine. Please he",
+    "email_ids": [
+      "E04"
+    ],
+    "notes": [
+      "Complaint requires human verification before remedy"
+    ]
+  },
+  {
+    "ticket_id": "TKT-003",
+    "created_at": "2026-11-24T19:15:58.898624+00:00",
+    "updated_at": "2026-11-24T19:15:58.898624+00:00",
+    "order_id": "KC-1051",
+    "customer_email": "riya.kapoor@example.com",
+    "intent": "complaint",
+    "priority": "High",
+    "status": "Open",
+    "summary": "WORST EXPERIENCE. REFUND NOW: This is absolutely unacceptable. I received my order KC-1051 yesterday and one of the Sandalwood lotion bottles had LEAKED all over the box and the other bottle. Everythi",
+    "llm_summary": "WORST EXPERIENCE. REFUND NOW: This is absolutely unacceptable. I received my order KC-1051 yesterday and one of the Sandalwood lotion bottles had LEAKED all over the box and the other bottle. Everythi",
+    "email_ids": [
+      "E08"
+    ],
+    "notes": [
+      "Complaint requires human verification before remedy"
+    ]
+  }
+]

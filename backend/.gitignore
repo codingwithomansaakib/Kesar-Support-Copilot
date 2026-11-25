@@ -1,0 +1,13 @@
+.env
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+output/*
+!output/.gitkeep
+credentials/
+*service-account*.json
+*.pem
+*.key
+.DS_Store

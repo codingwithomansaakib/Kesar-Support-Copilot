@@ -1,0 +1,26 @@
+services:
+  api:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data:ro
+      - ./credentials:/app/credentials:ro
+    ports:
+      - "8000:8000"
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - GENERIC_TIMEZONE=Asia/Kolkata
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      - api
+volumes:
+  n8n_data:

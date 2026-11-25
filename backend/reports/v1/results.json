@@ -1,0 +1,233 @@
+[
+  {
+    "email_id": "E01",
+    "classification": {
+      "intent": "order_status",
+      "secondary_intent": null,
+      "order_id": "KC-1041",
+      "sentiment": "positive",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "Order status - KC-1041: Hi, I placed an order for the Saffron Glow serum on the 15th. Could you tell me when it will reach me? Order number is KC-1041. Thanks, Ananya"
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": true,
+    "ticket": null,
+    "draft_reply": "Hi Ananya,\n\nOrder KC-1041 is currently shipped. Estimated delivery is 2026-11-21. Track it here: https://track.example.com/SS7781041\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E02",
+    "classification": {
+      "intent": "product_query",
+      "secondary_intent": null,
+      "order_id": null,
+      "sentiment": "positive",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "Question about Saffron serum: Hello, I have quite oily skin and most serums make my face greasy. Is the Saffron Glow Face Serum okay for oily skin? Also, is it vegan? I'm trying to switch to only vega"
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": false,
+    "ticket": null,
+    "draft_reply": "Hi Ishita,\n\n| Product | Price | Key facts |\n|---|---|---|\n| Saffron Glow Face Serum 30 ml | ₹1,299 | Saffron + Vitamin C. Lightweight, non-greasy, suitable for **all skin types including oily**. **Vegan.** Use AM/PM after cleansing. |\n| Kumkumadi Night Oil 15 ml | ₹1,149 | Traditional kumkumadi tailam blend. Best for **normal to dry** skin. **Not recommended for very oily or acne-prone skin.** Night use only. Vegan. |\n| Ubtan Face Pack 100 g | ₹699 | Turmeric, chickpea flour, sandalwood. Mix with water or rose water. Use 2× a week. Vegan. |\n| Rose Water Toner 200 ml | ₹899 | Steam-distilled rose water, alcohol-free. Suitable for all skin types. Vegan. |\n| Bhringraj Hair Oil 200 ml | ₹649 | Bhringraj, amla, coconut oil base. Apply 1 hour before washing. Vegan. |\n| Sandalwood Body Lotion 250 ml | ₹749 | Sandalwood + shea butter. Contains **beeswax**, so **not vegan**. |\n| Aloe Calm Gel 150 g | ₹499 | 92% aloe vera. Soothing, suitable for all skin types. Vegan. |\n| Bridal Glow Kit | ₹3,499 | Contains Saffron Glow Serum, Kumkumadi Night Oil, Ubtan Face Pack and Rose Water Toner. Start 4–6 weeks before the event. |\n\n- Our products are **cosmetics, not medicines**. They are not intended to diagnose, treat or cure any skin or medical condition.\n- We always recommend a **patch test** (inner forearm, 24 hours) before first use.\n- For any skin condition (e.g., eczema, psoriasis, severe acne), pregnancy or allergies, customers should **consult a dermatologist or doctor** before use.\n- Support must **not** give medical advice or make claims about curing or treating conditions.\n- If a customer reports a reaction, advise them to stop using the product immediately and consult a doctor, and escalate to a human.\n\n> This is the **only** source of truth for policy and product answers. If a question is not answered here, the copilot must not guess. Send it to a human.\n\n- Orders can be cancelled **only before dispatch**. Once dispatched, the customer must wait for delivery and raise a return instead.\n- If we cancel an order (for example, an item is out of stock), prepaid orders are refunded automatically to the original payment method within **5–7 business days**.\n\n- Returns are accepted within **7 days of delivery**.\n- Returned items must be **unused, unopened and with the seal intact**. For hygiene reasons, we cannot accept opened or used products, including \"didn't suit me\" or \"didn't see results\" cases.\n- To start a return, the customer replies with the order ID. We arrange a free reverse pickup within 2–3 business days.\n- Combo or kit products (e.g., Bridal Glow Kit) must be returned as a complete set.\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E03",
+    "classification": {
+      "intent": "return_refund",
+      "secondary_intent": null,
+      "order_id": "KC-1047",
+      "sentiment": "neutral",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "Want to return toner: Hi team, I received my Rose Water Toner on Monday (order KC-1047). I bought it as a gift but it turns out my friend already has one. It's still sealed, never opened. Can I return"
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": true,
+    "ticket": {
+      "ticket_id": "TKT-001",
+      "created_at": "2026-11-24T19:15:58.896809+00:00",
+      "updated_at": "2026-11-24T19:15:58.896809+00:00",
+      "order_id": "KC-1047",
+      "customer_email": "kavya.reddy@example.com",
+      "intent": "return_refund",
+      "priority": "Normal",
+      "status": "Open",
+      "summary": "Want to return toner: Hi team, I received my Rose Water Toner on Monday (order KC-1047). I bought it as a gift but it turns out my friend already has one. It's still sealed, never opened. Can I return",
+      "llm_summary": "Want to return toner: Hi team, I received my Rose Water Toner on Monday (order KC-1047). I bought it as a gift but it turns out my friend already has one. It's still sealed, never opened. Can I return",
+      "email_ids": [
+        "E03"
+      ],
+      "notes": [
+        "Policy review required before any refund action."
+      ]
+    },
+    "draft_reply": "Hi Kavya,\n\nThanks for reaching out. Our returns team will review the order and the return conditions before confirming the next steps. We will follow up within 24 business hours; this message does not confirm refund approval.\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E04",
+    "classification": {
+      "intent": "complaint",
+      "secondary_intent": null,
+      "order_id": "KC-1052",
+      "sentiment": "neutral",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "Damaged product received - KC-1052: Hi, I received my order KC-1052 yesterday and the Ubtan Face Pack jar is cracked on the side. Half the powder has spilled into the box. The toner is fine. Please he"
+    },
+    "needs_human": true,
+    "human_reason": "Complaint requires human verification before remedy",
+    "order_found": true,
+    "ticket": {
+      "ticket_id": "TKT-002",
+      "created_at": "2026-11-24T19:15:58.897214+00:00",
+      "updated_at": "2026-11-24T19:15:58.897214+00:00",
+      "order_id": "KC-1052",
+      "customer_email": "tanvi.desai@example.com",
+      "intent": "complaint",
+      "priority": "High",
+      "status": "Open",
+      "summary": "Damaged product received - KC-1052: Hi, I received my order KC-1052 yesterday and the Ubtan Face Pack jar is cracked on the side. Half the powder has spilled into the box. The toner is fine. Please he",
+      "llm_summary": "Damaged product received - KC-1052: Hi, I received my order KC-1052 yesterday and the Ubtan Face Pack jar is cracked on the side. Half the powder has spilled into the box. The toner is fine. Please he",
+      "email_ids": [
+        "E04"
+      ],
+      "notes": [
+        "Complaint requires human verification before remedy"
+      ]
+    },
+    "draft_reply": "A support specialist will review your request and follow up within 24 business hours.\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E05",
+    "classification": {
+      "intent": "order_status",
+      "secondary_intent": null,
+      "order_id": "KC-1043",
+      "sentiment": "neutral",
+      "language": "hinglish",
+      "confidence": 0.9,
+      "summary": "order kab aayega??: Hi team, maine 16 Nov ko Aloe Calm Gel order kiya tha, order no KC-1043. Tracking mein shipped dikha raha hai but abhi tak deliver nahi hua. Kab tak aa jayega? Thoda jaldi bata do "
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": true,
+    "ticket": null,
+    "draft_reply": "Hi Priya,\n\nOrder KC-1043 is currently shipped. Estimated delivery is 2026-11-23. Track it here: https://track.example.com/SS7781043\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E06",
+    "classification": {
+      "intent": "other",
+      "secondary_intent": null,
+      "order_id": null,
+      "sentiment": "neutral",
+      "language": "en",
+      "confidence": 0.98,
+      "summary": "Congratulations!! Your website selected for FREE #1 Google ranking: Dear Website Owner, Your website kesarandco.example has been SELECTED for our exclusive offer: guaranteed #1 ranking on Google in 7 "
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": false,
+    "ticket": null,
+    "draft_reply": "",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E07",
+    "classification": {
+      "intent": "order_status",
+      "secondary_intent": null,
+      "order_id": "KC-1046",
+      "sentiment": "positive",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "Tracking details for my wife's order KC-1046: Hi, My wife Meera placed an order (KC-1046) for the Bridal Glow Kit. She's travelling this week and asked me to keep track of it. Can you please send me t"
+    },
+    "needs_human": true,
+    "human_reason": "Sender email does not match order customer; privacy verification failed | Order details withheld due to sender mismatch",
+    "order_found": true,
+    "ticket": null,
+    "draft_reply": "Hi,\n\nFor privacy, we can share order details only with the email address used to place the order. Please ask the account holder to contact us from that email address.\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E08",
+    "classification": {
+      "intent": "complaint",
+      "secondary_intent": null,
+      "order_id": "KC-1051",
+      "sentiment": "angry",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "WORST EXPERIENCE. REFUND NOW: This is absolutely unacceptable. I received my order KC-1051 yesterday and one of the Sandalwood lotion bottles had LEAKED all over the box and the other bottle. Everythi"
+    },
+    "needs_human": true,
+    "human_reason": "Complaint requires human verification before remedy",
+    "order_found": true,
+    "ticket": {
+      "ticket_id": "TKT-003",
+      "created_at": "2026-11-24T19:15:58.898624+00:00",
+      "updated_at": "2026-11-24T19:15:58.898624+00:00",
+      "order_id": "KC-1051",
+      "customer_email": "riya.kapoor@example.com",
+      "intent": "complaint",
+      "priority": "High",
+      "status": "Open",
+      "summary": "WORST EXPERIENCE. REFUND NOW: This is absolutely unacceptable. I received my order KC-1051 yesterday and one of the Sandalwood lotion bottles had LEAKED all over the box and the other bottle. Everythi",
+      "llm_summary": "WORST EXPERIENCE. REFUND NOW: This is absolutely unacceptable. I received my order KC-1051 yesterday and one of the Sandalwood lotion bottles had LEAKED all over the box and the other bottle. Everythi",
+      "email_ids": [
+        "E08"
+      ],
+      "notes": [
+        "Complaint requires human verification before remedy"
+      ]
+    },
+    "draft_reply": "A support specialist will review your request and follow up within 24 business hours.\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E09",
+    "classification": {
+      "intent": "product_query",
+      "secondary_intent": null,
+      "order_id": null,
+      "sentiment": "neutral",
+      "language": "hi",
+      "confidence": 0.9,
+      "summary": "डिलीवरी के बारे में सवाल: नमस्ते, मैं गुवाहाटी में रहता हूँ। अगर मैं आज Bridal Glow Kit ऑर्डर करूँ तो डिलीवरी में कितने दिन लगेंगे? और क्या कैश ऑन डिलीवरी (COD) उपलब्ध है? धन्यवाद, भास्कर दास"
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": false,
+    "ticket": null,
+    "draft_reply": "Hi Bhaskar,\n\n- Returns are accepted within **7 days of delivery**.\n- Returned items must be **unused, unopened and with the seal intact**. For hygiene reasons, we cannot accept opened or used products, including \"didn't suit me\" or \"didn't see results\" cases.\n- To start a return, the customer replies with the order ID. We arrange a free reverse pickup within 2–3 business days.\n- Combo or kit products (e.g., Bridal Glow Kit) must be returned as a complete set.\n\n| Product | Price | Key facts |\n|---|---|---|\n| Saffron Glow Face Serum 30 ml | ₹1,299 | Saffron + Vitamin C. Lightweight, non-greasy, suitable for **all skin types including oily**. **Vegan.** Use AM/PM after cleansing. |\n| Kumkumadi Night Oil 15 ml | ₹1,149 | Traditional kumkumadi tailam blend. Best for **normal to dry** skin. **Not recommended for very oily or acne-prone skin.** Night use only. Vegan. |\n| Ubtan Face Pack 100 g | ₹699 | Turmeric, chickpea flour, sandalwood. Mix with water or rose water. Use 2× a week. Vegan. |\n| Rose Water Toner 200 ml | ₹899 | Steam-distilled rose water, alcohol-free. Suitable for all skin types. Vegan. |\n| Bhringraj Hair Oil 200 ml | ₹649 | Bhringraj, amla, coconut oil base. Apply 1 hour before washing. Vegan. |\n| Sandalwood Body Lotion 250 ml | ₹749 | Sandalwood + shea butter. Contains **beeswax**, so **not vegan**. |\n| Aloe Calm Gel 150 g | ₹499 | 92% aloe vera. Soothing, suitable for all skin types. Vegan. |\n| Bridal Glow Kit | ₹3,499 | Contains Saffron Glow Serum, Kumkumadi Night Oil, Ubtan Face Pack and Rose Water Toner. Start 4–6 weeks before the event. |\n\n## 2. Cash on Delivery (COD)\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  },
+  {
+    "email_id": "E10",
+    "classification": {
+      "intent": "order_status",
+      "secondary_intent": null,
+      "order_id": null,
+      "sentiment": "neutral",
+      "language": "en",
+      "confidence": 0.9,
+      "summary": "Where is my hair oil?: Hello, I ordered two bottles of the Bhringraj hair oil a few days back and haven't received anything yet. Can you check? I don't have the order number handy, sorry. I used this "
+    },
+    "needs_human": false,
+    "human_reason": "",
+    "order_found": true,
+    "ticket": null,
+    "draft_reply": "Hi Vikram,\n\nOrder KC-1044 is currently shipped. Estimated delivery is 2026-11-25. Track it here: https://track.example.com/BX5521044\n\nWarm regards,\nTeam Kesar",
+    "model_mode": "offline_demo"
+  }
+]

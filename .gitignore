@@ -1,0 +1,25 @@
+# Python
+**/.env
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+*.py[cod]
+
+# Runtime outputs (keep placeholder only)
+backend/output/*
+!backend/output/.gitkeep
+
+# Secrets and credentials
+**/credentials/
+**/*service-account*.json
+*.pem
+*.key
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# OS/editor
+.DS_Store
+.vscode/

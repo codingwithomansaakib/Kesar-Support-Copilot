@@ -1,0 +1,1 @@
+Import `audit_log_template.csv` into the Google Sheet tab named `Audit Log` and `tickets_template.csv` into the tab named `Tickets`. These headers match the assignment's supplied templates. The application writes corresponding rows to `output/audit_log.csv` and `output/tickets.csv`.

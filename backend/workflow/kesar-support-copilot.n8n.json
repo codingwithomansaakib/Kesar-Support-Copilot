@@ -1,0 +1,94 @@
+{
+  "name": "Kesar & Co. - AI Support Copilot",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kesar-support-email",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "7f1b6f0a-62a1-4b3d-9d51-000000000001",
+      "name": "Incoming Support Email",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 320],
+      "webhookId": "kesar-support-email"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/process",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body ?? $json }}",
+        "options": { "timeout": 60000 }
+      },
+      "id": "7f1b6f0a-62a1-4b3d-9d51-000000000002",
+      "name": "Classify, Verify and Draft (FastAPI)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 320]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.needs_human }}",
+              "operation": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7f1b6f0a-62a1-4b3d-9d51-000000000003",
+      "name": "Human Review Required?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [760, 320]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": { "responseCode": 200 }
+      },
+      "id": "7f1b6f0a-62a1-4b3d-9d51-000000000004",
+      "name": "Return Human Review Result",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1040, 220]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": { "responseCode": 200 }
+      },
+      "id": "7f1b6f0a-62a1-4b3d-9d51-000000000005",
+      "name": "Return Draft-Ready Result",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1040, 420]
+    }
+  ],
+  "connections": {
+    "Incoming Support Email": {
+      "main": [[{ "node": "Classify, Verify and Draft (FastAPI)", "type": "main", "index": 0 }]]
+    },
+    "Classify, Verify and Draft (FastAPI)": {
+      "main": [[{ "node": "Human Review Required?", "type": "main", "index": 0 }]]
+    },
+    "Human Review Required?": {
+      "main": [
+        [{ "node": "Return Human Review Result", "type": "main", "index": 0 }],
+        [{ "node": "Return Draft-Ready Result", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "tags": []
+}
