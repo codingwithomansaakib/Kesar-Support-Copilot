@@ -1,132 +1,344 @@
 # Kesar & Co. — AI Order-Support Copilot
 
-A draft-only AI support copilot built for the fictional Kesar & Co. assignment. It processes the supplied 25 sample emails and mock orders; it does **not** connect to real customer mailboxes, Shopify, courier services or live customer data.
+A draft-only AI support copilot built for the fictional Kesar & Co. assignment. It processes the supplied 25 sample emails and mock orders. It does **not** connect to real customer mailboxes, Shopify, courier services, or live customer data.
 
-## What it does
+## 🎥 Project Demo Video
 
-1. Classifies customer emails with Groq and validates the JSON against the supplied schema.
+[▶ Watch Kesar & Co. AI Order-Support Copilot Demo](https://drive.google.com/file/d/1BR0Ss8EujQxm4BfxuaZEyymow00RPXpb/view?usp=drive_link)
+
+## 🚀 What It Does
+
+1. Classifies customer emails with Groq and validates JSON against the supplied schema.
 2. Uses a Groq tool-calling agent with `get_order` and `search_faq` tools.
 3. Looks up orders from the read-only `backend/data/orders.json` dataset.
-4. Grounds product/policy answers in `backend/data/faq.md` and follows `brand_voice.md`.
+4. Grounds product and policy answers in `backend/data/faq.md` and follows `brand_voice.md`.
 5. Creates or updates tickets for refund/return requests and complaints, avoiding duplicate open tickets for the same order.
-6. Routes low-confidence, privacy, medical/safety, complaint and ambiguous cases to human review.
-7. Writes one audit row per processed email and optionally syncs the CSVs to Google Sheets.
-8. Shows results in the React dashboard. Replies are drafts only; no email is sent.
+6. Routes low-confidence, privacy, medical/safety, complaint, and ambiguous cases to human review.
+7. Writes one audit row per processed email and optionally syncs CSV files to Google Sheets.
+8. Displays results in a React dashboard. Replies are drafts only; no email is sent.
 
-## Project structure
+## 🛠️ Technology Stack
+
+| Component | Technology |
+|---|---|
+| Frontend | React.js, Vite |
+| Backend | Python, FastAPI |
+| AI / LLM | Groq API |
+| AI Agent | Tool Calling |
+| Database / Mock Data | JSON |
+| Data Logging | CSV |
+| Spreadsheet Integration | Google Sheets |
+| Workflow Automation | n8n |
+| Testing | Pytest |
+| Version Control | Git, GitHub |
+
+## 📁 Project Structure
 
 ```text
-backend/       FastAPI, Groq classifier/agent, tools, policies, CSV outputs
-frontend/      React + Vite dashboard
-workflow/      n8n webhook workflow export (no credentials/secrets)
-docs/          assignment setup, demo and submission guidance
-templates/     official CSV and README/report templates
-prompts/       classification and drafting prompts
-screenshots/   dashboard screenshots
+Kesar-Support-Copilot/
+│
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── agent.py
+│   │   ├── classifier.py
+│   │   ├── processor.py
+│   │   ├── policy_engine.py
+│   │   ├── order_service.py
+│   │   ├── ticket_service.py
+│   │   ├── audit_service.py
+│   │   └── tools/
+│   │
+│   ├── data/
+│   │   ├── orders.json
+│   │   ├── faq.md
+│   │   ├── brand_voice.md
+│   │   └── test_emails.json
+│   │
+│   ├── prompts/
+│   ├── schemas/
+│   ├── scripts/
+│   ├── tests/
+│   ├── output/
+│   ├── requirements.txt
+│   └── .env.example
+│
+├── frontend/
+│   ├── src/
+│   │   ├── main.jsx
+│   │   └── styles.css
+│   ├── package.json
+│   └── vite.config.js
+│
+├── workflow/
+│   └── kesar-support-copilot.n8n.json
+│
+├── docs/
+├── templates/
+├── screenshots/
+├── README.md
+└── .gitignore
 ```
 
-## Run locally (Windows PowerShell)
+## ⚙️ Installation and Setup
 
-### 1. Backend
+### Prerequisites
+
+- Python 3.10+
+- Node.js and npm
+- Git
+- Groq API key
+- VS Code (recommended)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/codingwithomansaakib/Kesar-Support-Copilot.git
+cd Kesar-Support-Copilot
+```
+
+### 2. Backend Setup
+
+Open a terminal:
 
 ```powershell
 cd backend
+
 python -m venv .venv
+
 .venv\Scripts\activate
+
 pip install -r requirements.txt
+
 copy .env.example .env
 ```
 
-Add your own `GROQ_API_KEY` to `backend/.env`. Keep this file private; it is ignored by Git. Confirm the configured `GROQ_MODEL` is available to your Groq account.
+Add your Groq API key to `backend/.env`:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=llama-3.3-70b-versatile
+CONFIDENCE_THRESHOLD=0.75
+```
+
+Keep your `.env` file private. Never upload API keys or credentials to GitHub.
+
+Start the FastAPI backend:
 
 ```powershell
 uvicorn app.main:app --reload
 ```
 
-API docs: http://127.0.0.1:8000/docs
+Backend API:
 
-### 2. Frontend (second terminal)
+http://127.0.0.1:8000
+
+API documentation:
+
+http://127.0.0.1:8000/docs
+
+### 3. Frontend Setup
+
+Open a second terminal:
 
 ```powershell
 cd frontend
+
 npm install
+
 npm run dev
 ```
 
-Open the Vite URL, normally http://localhost:5173. The Vite proxy forwards `/api/*` requests to the FastAPI server on port 8000.
+Open the frontend:
 
-### 3. Run tests and the assignment batch
+http://localhost:5173
 
-In the backend terminal (with the virtual environment active):
+The Vite proxy forwards `/api/*` requests to the FastAPI backend running on port 8000.
+
+### 4. Run Tests and Process Emails
+
+From the backend directory, with the virtual environment activated:
 
 ```powershell
 pytest -q
+```
+
+Run the assignment batch:
+
+```powershell
 python scripts/run_batch.py
 ```
 
-`run_batch.py` runs the deterministic baseline on the first 10 emails as v1 and the final pipeline on all 25 emails as v2. If `GROQ_API_KEY` is absent, v2 explicitly runs in offline-demo mode; do not present that as a Groq evaluation. After a successful Groq run, inspect `backend/reports/v2/` and complete `backend/TEST_REPORT.md` using measured results.
+The batch script runs the deterministic baseline on the first 10 emails as v1 and the final pipeline on all 25 emails as v2.
 
-## Google Sheets
+If the Groq API key is missing, v2 runs in offline-demo mode. Do not present offline-demo results as a Groq evaluation.
 
-Create a spreadsheet named **Kesar Support** with tabs named exactly `Audit Log` and `Tickets`. Import the matching CSV templates from `templates/`. Configure a Google service-account JSON file and spreadsheet ID in `backend/.env`:
+## 📊 Google Sheets Integration
+
+Create a Google spreadsheet named **Kesar Support**.
+
+Create two tabs with these exact names:
+
+1. `Audit Log`
+2. `Tickets`
+
+Configure the following variables in `backend/.env`:
 
 ```env
 GOOGLE_SERVICE_ACCOUNT_FILE=credentials/service-account.json
 GOOGLE_SHEET_ID=your_google_sheet_id
 ```
 
-Share the spreadsheet with the service account's email. Never commit the JSON credentials. The backend writes local CSVs first and syncs them when credentials are configured. Before submission, set the sheet to **Anyone with the link can view** and paste the view URL into your submission README.
+Share the spreadsheet with your service account email.
 
-## n8n workflow
+The backend writes local CSV files first and syncs them when Google Sheets credentials are configured.
 
-Import `workflow/kesar-support-copilot.n8n.json` into n8n. The included workflow exposes a webhook, calls the FastAPI `/process` endpoint, branches on `needs_human`, and returns the result. The included URL `http://api:8000/process` is intended for the provided Docker Compose network. If you use n8n Cloud or another host, replace it with your reachable FastAPI base URL. Configure credentials in n8n or environment variables, never in exported workflow JSON.
+Never commit service-account credentials to GitHub.
 
-For the Docker Compose setup, run from `backend/` with Docker installed:
+## 🔄 n8n Workflow Integration
 
-```powershell
-docker compose up --build
+The project includes an n8n workflow export:
+
+```text
+workflow/kesar-support-copilot.n8n.json
 ```
 
-Then open n8n at http://localhost:5678 and import the workflow. The webhook path is `kesar-support-email`; activate the workflow and use its production webhook URL when testing.
+The workflow:
 
-## Safety and limitations
+1. Receives incoming email data through a webhook.
+2. Calls the FastAPI `/process` endpoint.
+3. Checks the `needs_human` field.
+4. Routes the result according to the processing outcome.
+5. Returns the processing result.
 
-- Uses only the supplied fictional data and scenario date (20 November 2026). Date rules use each email's `received_at`.
-- No real mailbox, Shopify or courier integration is included.
-- No customer email is sent automatically.
-- Refund decisions remain manual; eligibility checks are not refund approvals.
-- Medical/safety questions and unclear or risky cases require human review.
+Import the workflow into your n8n instance.
+
+The included `http://api:8000/process` URL is intended for the provided Docker Compose network. For n8n Cloud or another host, replace it with your reachable FastAPI URL.
+
+The webhook path is:
+
+```text
+kesar-support-email
+```
+
+Configure credentials securely in n8n or environment variables.
+
+## 🛡️ Safety and Limitations
+
+- Uses only the supplied fictional assignment data and scenario date (20 November 2026).
+- Does not connect to real customer mailboxes, Shopify, or courier services.
+- Does not automatically send customer emails.
+- Refund decisions remain manual.
+- Eligibility checks are not refund approvals.
+- Medical and safety-related questions require human review.
+- Low-confidence and ambiguous cases are escalated.
+- Privacy verification is applied before sharing order information.
 - Photo evidence cannot be inspected because the supplied dataset contains attachment names, not image files.
-- Google Sheets and n8n require your own account setup and activation before they are operational.
+- Google Sheets and n8n require separate account configuration and activation.
 
-## Before submission
+## 🧠 Product-Thinking Answers
 
-Follow `docs/SUBMISSION.md`. The reviewer expects a GitHub repository, exported workflow, Google Sheet view link with all 25 audit rows and tickets, screenshots of workflow/tickets/audit log, completed v1/v2 `TEST_REPORT.md`, README with the five product-thinking answers and AI-tools note, and a 5-minute recording showing three end-to-end emails (including one ticket) plus one limitation.
+### 1. Auto-Send vs. Draft
 
-**Current package status:** source code, frontend, n8n workflow export, templates and local tests are included. You still need to configure your own Groq key, run the final 25-email Groq batch, configure/share Google Sheets, import/activate the n8n workflow, complete measured test results, and record the demo.
+This prototype sends nothing automatically.
 
+Verified order-status and FAQ answers may be prepared as drafts when confidence is at least 0.80 and the sender identity is confirmed.
 
-## Product-thinking answers (required)
+Refunds, complaints, privacy mismatches, medical/safety questions, ambiguous records, and low-confidence classifications stay with a human.
 
-### 1. Auto-send vs. draft
-This prototype sends nothing automatically. Verified order-status and FAQ answers may be prepared as drafts when confidence is at least 0.80 and the sender identity is confirmed. Refunds, complaints, privacy mismatches, medical/safety questions, ambiguous records and low-confidence classifications stay with a human. The 0.80 threshold is an initial safety setting and should be tuned using reviewed outcomes.
+The 0.80 threshold is an initial safety setting and should be tuned using reviewed outcomes.
 
-### 2. Cost
-The cost estimate must use the actual Groq model price and measured token usage. The calculation is: `per-email cost = (input tokens × input price + output tokens × output price) / 1,000,000`. At 1,000 emails/day, monthly volume is approximately 30,000 emails, so `monthly cost = per-email cost × 30,000`. Token usage is not currently persisted by this prototype, so a numeric cost would be an unsupported estimate; instrument token counts before presenting a rupee figure.
+### 2. Cost Estimation
 
-### 3. Week-one success metric
-Track the percentage of AI drafts approved by a human without edits, segmented by intent. This measures usefulness while keeping a human in control. Pause the copilot immediately if there is a privacy leak, unsupported policy claim, unsafe medical claim or a material increase in incorrect drafts.
+The cost estimate must use the actual Groq model price and measured token usage.
 
-### 4. Failure experience
-The customer receives no automatic email because the system is draft-only. A risky or uncertain case is marked `needs_human`, and the audit log records the reason. This limits harm from incorrect refund promises, disclosure of another customer's order or unsupported product advice.
+Formula:
 
-### 5. Don't automate
-Final refund approval and policy exceptions should remain manual. They involve money, evidence (such as photos and product condition) and customer context that may not exist in the mock order data.
+```text
+Per-email cost =
+(input tokens × input price + output tokens × output price)
+÷ 1,000,000
+```
 
-## AI tools used
-ChatGPT was used as a development assistant for planning, code drafting, debugging and reviewing the assignment requirements. Groq is the runtime LLM provider used by the application when `GROQ_API_KEY` is configured. All generated code and test results should be reviewed and verified by the candidate before submission.
+At 1,000 emails per day:
 
-## Submission links (fill before sending)
-- GitHub repository: **add your repository URL**
-- Google Sheet (view access): **add your Kesar Support URL**
-- 5-minute recording: **add your Loom / Drive / unlisted YouTube URL**
+```text
+Monthly volume = 1,000 × 30 = 30,000 emails
+
+Monthly cost = Per-email cost × 30,000
+```
+
+Token usage is not currently persisted by this prototype, so a numeric cost would be an unsupported estimate. Instrument token counts before presenting a rupee figure.
+
+### 3. Week-One Success Metric
+
+Track the percentage of AI drafts approved by a human without edits, segmented by intent.
+
+This measures usefulness while keeping a human in control.
+
+Pause the copilot immediately if there is a privacy leak, unsupported policy claim, unsafe medical claim, or a material increase in incorrect drafts.
+
+### 4. Failure Experience
+
+The customer receives no automatic email because the system is draft-only.
+
+A risky or uncertain case is marked `needs_human`, and the audit log records the reason.
+
+This limits harm from incorrect refund promises, disclosure of another customer's order, or unsupported product advice.
+
+### 5. What Should Not Be Automated?
+
+Final refund approval and policy exceptions should remain manual.
+
+They involve money, evidence such as photos and product condition, and customer context that may not exist in the mock order data.
+
+## 🤖 AI Tools Used
+
+- **ChatGPT:** Used as a development assistant for project planning, code drafting, debugging, and reviewing assignment requirements.
+- **Groq API:** Runtime LLM provider used by the application when `GROQ_API_KEY` is configured.
+
+All generated code and test results should be reviewed and verified before submission.
+
+## 📋 Before Submission
+
+Follow `docs/SUBMISSION.md`.
+
+The reviewer expects:
+
+- [ ] GitHub repository
+- [ ] Exported n8n workflow
+- [ ] Google Sheet view link with all 25 audit rows and tickets
+- [ ] Workflow screenshot
+- [ ] Tickets screenshot
+- [ ] Audit log screenshot
+- [ ] Completed v1/v2 `TEST_REPORT.md`
+- [ ] Five product-thinking answers
+- [ ] AI tools used note
+- [ ] Five-minute demo recording showing three end-to-end emails, including one ticket, and one limitation
+
+## 🔗 Submission Links
+
+**GitHub Repository:**
+
+https://github.com/codingwithomansaakib/Kesar-Support-Copilot
+
+**Project Demo Video:**
+
+https://drive.google.com/file/d/1BR0Ss8EujQxm4BfxuaZEyymow00RPXpb/view?usp=drive_link
+
+**Google Sheets (View Access):**
+
+Add your Kesar Support spreadsheet URL here.
+
+## 📌 Current Package Status
+
+Source code, frontend, n8n workflow export, templates, and local tests are included.
+
+Remaining tasks:
+
+- Configure your own Groq API key.
+- Run the final 25-email Groq batch.
+- Configure and share Google Sheets.
+- Import and activate the n8n workflow.
+- Complete measured test results.
+- Verify the demo recording and submission links.
